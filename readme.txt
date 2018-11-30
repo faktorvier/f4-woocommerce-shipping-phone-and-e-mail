@@ -5,7 +5,7 @@ Tags: woocommerce, checkout, shipping, telephone, email, field, fields, shop, ec
 Requires at least: 4.4.0
 Tested up to: 4.9.8
 Requires PHP: 5.6
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,9 @@ You can change the settings for both fields on the Accounts & Privacy screen in 
 6. Field configuration in WooCommerce settings
 
 == Changelog ==
+
+= 1.0.1 =
+* Update plugin slug and basename for better compatibility with the plugin name
 
 = 1.0.0 =
 * Initial stable release

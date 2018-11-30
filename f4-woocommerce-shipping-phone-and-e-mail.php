@@ -4,7 +4,7 @@
 Plugin Name: F4 WooCommerce Shipping Phone and E-Mail
 Plugin URI: https://github.com/faktorvier/f4-woocommerce-shipping-phone-and-e-mail
 Description: Adds fields for e-mail and/or telephone to the WooCommerce shipping address.
-Version: 1.0.0
+Version: 1.0.1
 Author: FAKTOR VIER
 Author URI: https://www.faktorvier.ch
 License: GPLv2
@@ -31,11 +31,10 @@ along with this plugin. If not, see https://www.gnu.org/licenses/gpl-2.0.html.
 
 if(!defined('ABSPATH')) exit; // don't access directly
 
-define('F4_WCSPE_VERSION', '1.0.0');
+define('F4_WCSPE_VERSION', '1.0.1');
 define('F4_WCSPE_PRO', false);
 
-define('F4_WCSPE_SLUG', 'f4-wc-shipping-phone-email');
-define('F4_WCSPE_TD', F4_WCSPE_SLUG);
+define('F4_WCSPE_SLUG', 'f4-woocommerce-shipping-phone-and-e-mail');
 define('F4_WCSPE_MAIN_FILE', __FILE__);
 define('F4_WCSPE_BASENAME', plugin_basename(F4_WCSPE_MAIN_FILE));
 define('F4_WCSPE_PATH', dirname(F4_WCSPE_MAIN_FILE) . DIRECTORY_SEPARATOR);

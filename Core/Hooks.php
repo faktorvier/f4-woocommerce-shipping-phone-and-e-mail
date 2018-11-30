@@ -110,7 +110,7 @@ class Hooks {
 	 * @static
 	 */
 	public static function load_textdomain() {
-		$locale = apply_filters('plugin_locale', get_locale(), F4_WCSPE_TD);
+		$locale = apply_filters('plugin_locale', get_locale(), 'f4-wc-shipping-phone-email');
 		load_plugin_textdomain('f4-wc-shipping-phone-email', false, plugin_basename(F4_WCSPE_PATH . 'Core/Lang') . '/');
 	}
 

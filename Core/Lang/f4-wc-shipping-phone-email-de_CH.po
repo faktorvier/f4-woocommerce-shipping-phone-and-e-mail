@@ -1,0 +1,46 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: F4 WooCommerce Shipping Phone and E-Mail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-11-28 10:18+0000\n"
+"PO-Revision-Date: 2018-11-28 10:18+0000\n"
+"Last-Translator: Stephan Langenegger <dev@faktorvier.ch>\n"
+"Language-Team: Deutsch (Schweiz)\n"
+"Language: de_CH\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.2.0; wp-4.9.8"
+
+#: Core/Hooks.php:244 Core/Hooks.php:446 Core/Hooks.php:499
+msgid "Shipping Phone Number"
+msgstr "Versand Telefonnummer"
+
+#: Core/Hooks.php:245 Core/Hooks.php:262
+msgid "Default = The same settings as the delivery address will be used. "
+msgstr ""
+"Standard = Es werden die selben Einstellungen wie bei der Rechnungsadresse "
+"verwendet."
+
+#: Core/Hooks.php:261 Core/Hooks.php:450 Core/Hooks.php:503
+msgid "Shipping Email Address"
+msgstr "Versand E-Mail"
+
+#. Name of the plugin
+msgid "F4 WooCommerce Shipping Phone and E-Mail"
+msgstr "F4 WooCommerce Shipping Phone and E-Mail"
+
+#. Description of the plugin
+msgid "@todo"
+msgstr ""
+
+#. URI of the plugin
+#. Author URI of the plugin
+msgid "https://www.faktorvier.ch"
+msgstr "https://www.faktorvier.ch"
+
+#. Author of the plugin
+msgid "FAKTOR VIER"
+msgstr "FAKTOR VIER"

@@ -40,6 +40,11 @@ You can change the settings for both fields on the Accounts & Privacy screen in 
 * Lightweight and optimized
 * 100% free!
 
+= Planned features =
+
+* Full integration into API and REST
+* Compatibility check for other popular payment gateways
+
 == Installation ==
 
 1. Upload the plugin files to the `/wp-content/plugins/f4-woocommerce-shipping-phone-and-e-mail` directory, or install the plugin through the WordPress plugins screen directly
@@ -54,11 +59,6 @@ You can change the settings for both fields on the Accounts & Privacy screen in 
 4. Fields on the order admin page
 5. Fields in edit address form
 6. Field configuration in WooCommerce settings
-
-== Planned features ==
-
-* Full integration into API and REST
-* Compatibility check for other popular payment gateways
 
 == Changelog ==
 

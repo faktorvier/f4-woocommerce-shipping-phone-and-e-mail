@@ -320,7 +320,7 @@ class Hooks {
 		// Section start
 		$fields_settings = array(
 			array(
-				'title' => '',
+				'title' => __('Shipping Phone Number and E-Mail fields', 'f4-wc-shipping-phone-email'),
 				'type' => 'title',
 				'id' => 'shipping-phone-email'
 			)

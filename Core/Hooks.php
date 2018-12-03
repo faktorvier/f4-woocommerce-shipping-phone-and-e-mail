@@ -37,8 +37,6 @@ class Hooks {
 	 * @since 1.0.0
 	 * @access public
 	 * @static
-	 *
-	 * @todo: paypal, REST/API filter
 	 */
 	public static function core_loaded() {
 		do_action('F4/WCSPE/Core/set_constants');

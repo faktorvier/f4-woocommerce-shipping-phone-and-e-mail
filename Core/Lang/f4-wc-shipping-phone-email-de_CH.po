@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: F4 WooCommerce Shipping Phone and E-Mail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-28 10:18+0000\n"
-"PO-Revision-Date: 2018-11-28 10:18+0000\n"
+"POT-Creation-Date: 2018-12-03 22:51+0000\n"
+"PO-Revision-Date: 2018-12-03 22:53+0000\n"
 "Last-Translator: Stephan Langenegger <dev@faktorvier.ch>\n"
 "Language-Team: Deutsch (Schweiz)\n"
 "Language: de_CH\n"
@@ -14,33 +14,44 @@ msgstr ""
 "X-Generator: Loco https://localise.biz/\n"
 "X-Loco-Version: 2.2.0; wp-4.9.8"
 
-#: Core/Hooks.php:244 Core/Hooks.php:446 Core/Hooks.php:499
-msgid "Shipping Phone Number"
-msgstr "Versand Telefonnummer"
+#: Core/Hooks.php:321
+msgid "Shipping Phone Number and E-Mail fields"
+msgstr "Lieferung Telefonnummer und E-Mail Felder"
 
-#: Core/Hooks.php:245 Core/Hooks.php:262
+#: Core/Hooks.php:329 Core/Hooks.php:593 Core/Hooks.php:646
+msgid "Shipping Phone Number"
+msgstr "Lieferung Telefonnummer"
+
+#: Core/Hooks.php:330 Core/Hooks.php:347
 msgid "Default = The same settings as the delivery address will be used. "
 msgstr ""
 "Standard = Es werden die selben Einstellungen wie bei der Rechnungsadresse "
 "verwendet."
 
-#: Core/Hooks.php:261 Core/Hooks.php:450 Core/Hooks.php:503
+#: Core/Hooks.php:346 Core/Hooks.php:597 Core/Hooks.php:650
 msgid "Shipping Email Address"
-msgstr "Versand E-Mail"
+msgstr "Lieferung E-Mail"
 
 #. Name of the plugin
 msgid "F4 WooCommerce Shipping Phone and E-Mail"
 msgstr "F4 WooCommerce Shipping Phone and E-Mail"
 
 #. Description of the plugin
-msgid "@todo"
+msgid ""
+"Adds fields for e-mail and/or telephone to the WooCommerce shipping address."
 msgstr ""
+"Ergänzt die Lieferadresse von WooCommerce um ein E-Mail und/oder Telefon "
+"Feld."
+
+#. URI of the plugin
+msgid "https://github.com/faktorvier/f4-woocommerce-shipping-phone-and-e-mail"
+msgstr "https://github.com/faktorvier/f4-woocommerce-shipping-phone-and-e-mail"
+
+#. Author of the plugin
+msgid "FAKTOR VIER"
+msgstr "FAKTOR VIER"
 
 #. URI of the plugin
 #. Author URI of the plugin
 msgid "https://www.faktorvier.ch"
 msgstr "https://www.faktorvier.ch"
-
-#. Author of the plugin
-msgid "FAKTOR VIER"
-msgstr "FAKTOR VIER"

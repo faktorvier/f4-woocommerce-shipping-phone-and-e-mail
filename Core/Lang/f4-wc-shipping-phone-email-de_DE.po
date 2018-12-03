@@ -2,10 +2,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: F4 WooCommerce Shipping Phone and E-Mail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-29 17:21+0000\n"
-"PO-Revision-Date: 2018-11-29 17:22+0000\n"
+"POT-Creation-Date: 2018-12-03 22:51+0000\n"
+"PO-Revision-Date: 2018-12-03 22:52+0000\n"
 "Last-Translator: Stephan Langenegger <dev@faktorvier.ch>\n"
-"Language-Team: German\n"
+"Language-Team: Deutsch\n"
 "Language: de_DE\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
@@ -14,19 +14,23 @@ msgstr ""
 "X-Generator: Loco https://localise.biz/\n"
 "X-Loco-Version: 2.2.0; wp-4.9.8"
 
-#: Core/Hooks.php:331 Core/Hooks.php:595 Core/Hooks.php:648
-msgid "Shipping Phone Number"
-msgstr "Versand Telefonnummer"
+#: Core/Hooks.php:321
+msgid "Shipping Phone Number and E-Mail fields"
+msgstr "Lieferung Telefonnummer und E-Mail Felder"
 
-#: Core/Hooks.php:332 Core/Hooks.php:349
+#: Core/Hooks.php:329 Core/Hooks.php:593 Core/Hooks.php:646
+msgid "Shipping Phone Number"
+msgstr "Lieferung Telefonnummer"
+
+#: Core/Hooks.php:330 Core/Hooks.php:347
 msgid "Default = The same settings as the delivery address will be used. "
 msgstr ""
 "Standard = Es werden die selben Einstellungen wie bei der Rechnungsadresse "
 "verwendet."
 
-#: Core/Hooks.php:348 Core/Hooks.php:599 Core/Hooks.php:652
+#: Core/Hooks.php:346 Core/Hooks.php:597 Core/Hooks.php:650
 msgid "Shipping Email Address"
-msgstr "Versand E-Mail"
+msgstr "Lieferung E-Mail"
 
 #. Name of the plugin
 msgid "F4 WooCommerce Shipping Phone and E-Mail"
@@ -40,9 +44,13 @@ msgstr ""
 "Feld."
 
 #. URI of the plugin
-msgid "https://www.faktorvier.ch"
-msgstr "https://www.faktorvier.ch"
+msgid "https://github.com/faktorvier/f4-woocommerce-shipping-phone-and-e-mail"
+msgstr "https://github.com/faktorvier/f4-woocommerce-shipping-phone-and-e-mail"
 
 #. Author of the plugin
 msgid "FAKTOR VIER"
 msgstr "FAKTOR VIER"
+
+#. URI of the plugin
+msgid "https://www.faktorvier.ch"
+msgstr "https://www.faktorvier.ch"

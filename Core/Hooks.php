@@ -326,7 +326,7 @@ class Hooks {
 
 		// Phone field enabled
 		$fields_settings[] = array(
-			'title' => __('Shipping Phone Number', 'f4-wc-shipping-phone-email'),
+			'title' => __('Phone', 'woocommerce'),
 			'desc' => __('Default = The same settings as the delivery address will be used. ', 'f4-wc-shipping-phone-email'),
 			'id' => 'woocommerce_enable_shipping_field_phone',
 			'type' => 'select',
@@ -343,7 +343,7 @@ class Hooks {
 
 		// E-mail field enabled
 		$fields_settings[] = array(
-			'title' => __('Shipping Email Address', 'f4-wc-shipping-phone-email'),
+			'title' => __('Email address', 'woocommerce'),
 			'desc' => __('Default = The same settings as the delivery address will be used. ', 'f4-wc-shipping-phone-email'),
 			'id' => 'woocommerce_enable_shipping_field_email',
 			'type' => 'select',

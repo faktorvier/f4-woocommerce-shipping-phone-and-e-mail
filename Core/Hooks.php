@@ -43,45 +43,46 @@ class Hooks {
 		do_action('F4/WCSPE/Core/loaded');
 
 		// Checkout and account fields
-		add_filter('woocommerce_checkout_fields', __NAMESPACE__ . '\\Hooks::add_checkout_shipping_fields', 99);
-		add_filter('woocommerce_shipping_fields', __NAMESPACE__ . '\\Hooks::add_address_shipping_fields', 99, 2);
+		add_filter('woocommerce_checkout_fields', __NAMESPACE__ . '\\Hooks::add_checkout_shipping_fields', 10);
+		add_filter('woocommerce_shipping_fields', __NAMESPACE__ . '\\Hooks::add_address_shipping_fields', 10, 2);
+		add_filter( 'woocommerce_ajax_get_customer_details', __NAMESPACE__ . '\\Hooks::add_fields_to_ajax_get_customer_details', 10, 3);
 
 		// Formatted address
-		add_filter('woocommerce_order_formatted_shipping_address', __NAMESPACE__ . '\\Hooks::add_fields_to_formatted_order_address', 99, 2);
-		add_filter('woocommerce_localisation_address_formats', __NAMESPACE__ . '\\Hooks::append_fields_to_localisation_address_formats', 99);
-		add_filter('woocommerce_formatted_address_replacements', __NAMESPACE__ . '\\Hooks::replace_fields_in_formatted_address', 99, 2);
+		add_filter('woocommerce_order_formatted_shipping_address', __NAMESPACE__ . '\\Hooks::add_fields_to_formatted_order_address', 10, 2);
+		add_filter('woocommerce_localisation_address_formats', __NAMESPACE__ . '\\Hooks::append_fields_to_localisation_address_formats', 10);
+		add_filter('woocommerce_formatted_address_replacements', __NAMESPACE__ . '\\Hooks::replace_fields_in_formatted_address', 10, 2);
 
 		// Backend
-		add_filter('woocommerce_get_settings_account', __NAMESPACE__ . '\\Hooks::add_settings_fields', 99);
-		add_filter('woocommerce_customer_meta_fields', __NAMESPACE__ . '\\Hooks::add_customer_meta_fields', 99);
-		add_filter('woocommerce_admin_shipping_fields', __NAMESPACE__ . '\\Hooks::add_admin_shipping_fields', 99);
-		add_action('current_screen', __NAMESPACE__ . '\\Hooks::add_fields_to_order_preview_template', 99);
-		add_filter('woocommerce_admin_order_preview_get_order_details', __NAMESPACE__ . '\\Hooks::admin_order_preview_get_order_details', 99, 2);
+		add_filter('woocommerce_get_settings_account', __NAMESPACE__ . '\\Hooks::add_settings_fields', 10);
+		add_filter('woocommerce_customer_meta_fields', __NAMESPACE__ . '\\Hooks::add_customer_meta_fields', 10);
+		add_filter('woocommerce_admin_shipping_fields', __NAMESPACE__ . '\\Hooks::add_admin_shipping_fields', 10);
+		add_action('current_screen', __NAMESPACE__ . '\\Hooks::add_fields_to_order_preview_template', 10);
+		add_filter('woocommerce_admin_order_preview_get_order_details', __NAMESPACE__ . '\\Hooks::admin_order_preview_get_order_details', 10, 2);
 		add_filter('plugin_action_links_' . F4_WCSPE_BASENAME, __NAMESPACE__ . '\\Hooks::add_settings_link_to_plugin_list');
 
 		// Payment
-		add_filter('woocommerce_paypal_args', __NAMESPACE__ . '\\Hooks::overwrite_paypal_args', 99, 2);
+		add_filter('woocommerce_paypal_args', __NAMESPACE__ . '\\Hooks::overwrite_paypal_args', 10, 2);
 
 		// Privacy
-		add_filter('woocommerce_privacy_export_customer_personal_data_props', __NAMESPACE__ . '\\Hooks::privacy_customer_personal_data_props', 99, 2);
-		add_filter('woocommerce_privacy_erase_customer_personal_data_props', __NAMESPACE__ . '\\Hooks::privacy_customer_personal_data_props', 99, 2);
-		add_filter('woocommerce_privacy_export_customer_personal_data_prop_value', __NAMESPACE__ . '\\Hooks::privacy_export_customer_personal_data_prop_value', 99, 3);
-		add_filter('woocommerce_privacy_erase_customer_personal_data_prop', __NAMESPACE__ . '\\Hooks::privacy_erase_customer_personal_data_prop', 99, 3);
+		add_filter('woocommerce_privacy_export_customer_personal_data_props', __NAMESPACE__ . '\\Hooks::privacy_customer_personal_data_props', 10, 2);
+		add_filter('woocommerce_privacy_erase_customer_personal_data_props', __NAMESPACE__ . '\\Hooks::privacy_customer_personal_data_props', 10, 2);
+		add_filter('woocommerce_privacy_export_customer_personal_data_prop_value', __NAMESPACE__ . '\\Hooks::privacy_export_customer_personal_data_prop_value', 10, 3);
+		add_filter('woocommerce_privacy_erase_customer_personal_data_prop', __NAMESPACE__ . '\\Hooks::privacy_erase_customer_personal_data_prop', 10, 3);
 
-		add_filter('woocommerce_privacy_remove_order_personal_data_props', __NAMESPACE__ . '\\Hooks::privacy_order_personal_data_props', 99, 2);
-		add_filter('woocommerce_privacy_export_order_personal_data_props', __NAMESPACE__ . '\\Hooks::privacy_order_personal_data_props', 99, 2);
-		add_filter('woocommerce_privacy_export_order_personal_data_prop', __NAMESPACE__ . '\\Hooks::privacy_export_order_personal_data_prop', 99, 3);
-		add_action('woocommerce_privacy_remove_order_personal_data', __NAMESPACE__ . '\\Hooks::privacy_remove_order_personal_data', 99);
+		add_filter('woocommerce_privacy_remove_order_personal_data_props', __NAMESPACE__ . '\\Hooks::privacy_order_personal_data_props', 10, 2);
+		add_filter('woocommerce_privacy_export_order_personal_data_props', __NAMESPACE__ . '\\Hooks::privacy_order_personal_data_props', 10, 2);
+		add_filter('woocommerce_privacy_export_order_personal_data_prop', __NAMESPACE__ . '\\Hooks::privacy_export_order_personal_data_prop', 10, 3);
+		add_action('woocommerce_privacy_remove_order_personal_data', __NAMESPACE__ . '\\Hooks::privacy_remove_order_personal_data', 10);
 
 		// REST
-		//add_filter('woocommerce_rest_customer_schema', __NAMESPACE__ . '\\Hooks::rest_customer_schema', 99); // $properties
-		//add_filter('woocommerce_api_customer_response', __NAMESPACE__ . '\\Hooks::api_customer_response', 99, 4) // $customer_data, $customer, $fields, $this->server
-		//add_filter('woocommerce_api_order_response', __NAMESPACE__ . '\\Hooks::api_order_response', 99, 4); // $order_data, $order, $fields, $this->server
-		//add_filter('woocommerce_api_customer_shipping_address', __NAMESPACE__ . '\\Hooks::api_customer_shipping_address', 99); // $shipping_address
-		//add_filter('woocommerce_rest_shop_order_schema', __NAMESPACE__ . '\\Hooks::rest_shop_order_schema', 99); // $properties
+		//add_filter('woocommerce_rest_customer_schema', __NAMESPACE__ . '\\Hooks::rest_customer_schema', 10); // $properties
+		//add_filter('woocommerce_api_customer_response', __NAMESPACE__ . '\\Hooks::api_customer_response', 10, 4) // $customer_data, $customer, $fields, $this->server
+		//add_filter('woocommerce_api_order_response', __NAMESPACE__ . '\\Hooks::api_order_response', 10, 4); // $order_data, $order, $fields, $this->server
+		//add_filter('woocommerce_api_customer_shipping_address', __NAMESPACE__ . '\\Hooks::api_customer_shipping_address', 10); // $shipping_address
+		//add_filter('woocommerce_rest_shop_order_schema', __NAMESPACE__ . '\\Hooks::rest_shop_order_schema', 10); // $properties
 
-		//add_action('woocommerce_api_create_order', __NAMESPACE__ . '\\Hooks::api_create_order', 99, 3); // $order->get_id(), $data, $this // add phone/email to order
-		//add_action('woocommerce_api_edit_order', __NAMESPACE__ . '\\Hooks::api_edit_order', 99, 3); // $order->get_id(), $data, $this // add phone/email to order
+		//add_action('woocommerce_api_create_order', __NAMESPACE__ . '\\Hooks::api_create_order', 10, 3); // $order->get_id(), $data, $this // add phone/email to order
+		//add_action('woocommerce_api_edit_order', __NAMESPACE__ . '\\Hooks::api_edit_order', 10, 3); // $order->get_id(), $data, $this // add phone/email to order
 
 		self::load_settings();
 	}
@@ -224,6 +225,25 @@ class Hooks {
 		}
 
 		return $address_fields;
+	}
+
+	/**
+	 * Add fields to ajax call
+	 *
+	 * @since 1.0.2
+	 * @access public
+	 * @static
+	 */
+	public static function add_fields_to_ajax_get_customer_details($data, $customer, $user_id) {
+		if(self::$settings['phone_field_enabled'] !== 'hidden') {
+			$data['shipping']['phone'] = $customer->get_meta('shipping_phone');
+		}
+
+		if(self::$settings['email_field_enabled'] !== 'hidden') {
+			$data['shipping']['email'] = $customer->get_meta('shipping_email');
+		}
+
+		return $data;
 	}
 
 	/**
@@ -680,8 +700,6 @@ class Hooks {
 	public static function privacy_remove_order_personal_data($order) {
 		delete_post_meta($order->get_id(), '_shipping_phone');
 		delete_post_meta($order->get_id(), '_shipping_email');
-
-		return $value;
 	}
 }
 

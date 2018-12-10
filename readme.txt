@@ -3,7 +3,7 @@ Contributors: faktorvier
 Donate link: https://www.faktorvier.ch/
 Tags: woocommerce, checkout, shipping, telephone, email, field, fields, shop, ecommerce, order, account
 Requires at least: 4.4.0
-Tested up to: 4.9.8
+Tested up to: 5.0
 Requires PHP: 5.6
 Stable tag: 1.0.1
 License: GPLv2
@@ -61,6 +61,9 @@ You can change the settings for both fields on the Accounts & Privacy screen in 
 6. Field configuration in WooCommerce settings
 
 == Changelog ==
+
+= 1.0.2 =
+* Fix "load shipping address" function in order backend
 
 = 1.0.1 =
 * Update plugin slug and basename for better compatibility with the plugin name

@@ -254,6 +254,10 @@ class Hooks {
 	 * @static
 	 */
 	public static function add_fields_to_formatted_order_address($address, $order) {
+		if(!is_array($address)) {
+			return $address;
+		}
+
 		if(self::$settings['phone_field_enabled'] !== 'hidden') {
 			$address['address_type'] = 'shipping';
 			$address['phone'] = get_post_meta($order->get_id(), '_shipping_phone', true);

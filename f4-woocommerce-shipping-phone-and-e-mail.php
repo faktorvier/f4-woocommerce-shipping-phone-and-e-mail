@@ -1,7 +1,7 @@
 <?php
 
 /*
-Plugin Name: F4 WooCommerce Shipping Phone and E-Mail
+Plugin Name: F4 Shipping Phone and E-Mail for WooCommerce
 Plugin URI: https://github.com/faktorvier/f4-woocommerce-shipping-phone-and-e-mail
 Description: Adds fields for e-mail and/or telephone to the WooCommerce shipping address.
 Version: 1.0.3

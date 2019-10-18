@@ -3,7 +3,7 @@ Contributors: faktorvier
 Donate link: https://www.faktorvier.ch/donate/
 Tags: woocommerce, checkout, shipping, telephone, email, field, fields, shop, ecommerce, order, account
 Requires at least: 4.4.0
-Tested up to: 5.1
+Tested up to: 5.2
 Requires PHP: 5.6
 Stable tag: 1.0.4
 License: GPLv2

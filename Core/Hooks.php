@@ -45,7 +45,7 @@ class Hooks {
 		// Checkout and account fields
 		add_filter('woocommerce_checkout_fields', __NAMESPACE__ . '\\Hooks::add_checkout_shipping_fields', 10);
 		add_filter('woocommerce_shipping_fields', __NAMESPACE__ . '\\Hooks::add_address_shipping_fields', 10, 2);
-		add_filter( 'woocommerce_ajax_get_customer_details', __NAMESPACE__ . '\\Hooks::add_fields_to_ajax_get_customer_details', 10, 3);
+		add_filter('woocommerce_ajax_get_customer_details', __NAMESPACE__ . '\\Hooks::add_fields_to_ajax_get_customer_details', 10, 3);
 
 		// Formatted address
 		add_filter('woocommerce_order_formatted_shipping_address', __NAMESPACE__ . '\\Hooks::add_fields_to_formatted_order_address', 10, 2);
@@ -65,14 +65,13 @@ class Hooks {
 
 		// Privacy
 		add_filter('woocommerce_privacy_export_customer_personal_data_props', __NAMESPACE__ . '\\Hooks::privacy_customer_personal_data_props', 10, 2);
-		add_filter('woocommerce_privacy_erase_customer_personal_data_props', __NAMESPACE__ . '\\Hooks::privacy_customer_personal_data_props', 10, 2);
 		add_filter('woocommerce_privacy_export_customer_personal_data_prop_value', __NAMESPACE__ . '\\Hooks::privacy_export_customer_personal_data_prop_value', 10, 3);
-		add_filter('woocommerce_privacy_erase_customer_personal_data_prop', __NAMESPACE__ . '\\Hooks::privacy_erase_customer_personal_data_prop', 10, 3);
-
-		add_filter('woocommerce_privacy_remove_order_personal_data_props', __NAMESPACE__ . '\\Hooks::privacy_order_personal_data_props', 10, 2);
-		add_filter('woocommerce_privacy_export_order_personal_data_props', __NAMESPACE__ . '\\Hooks::privacy_order_personal_data_props', 10, 2);
+		add_filter('woocommerce_privacy_export_order_personal_data_props', __NAMESPACE__ . '\\Hooks::privacy_export_order_personal_data_props', 10, 2);
 		add_filter('woocommerce_privacy_export_order_personal_data_prop', __NAMESPACE__ . '\\Hooks::privacy_export_order_personal_data_prop', 10, 3);
-		add_action('woocommerce_privacy_remove_order_personal_data', __NAMESPACE__ . '\\Hooks::privacy_remove_order_personal_data', 10);
+
+		add_filter('woocommerce_privacy_erase_customer_personal_data_props', __NAMESPACE__ . '\\Hooks::privacy_customer_personal_data_props', 10, 2);
+		add_filter('woocommerce_privacy_erase_customer_personal_data_prop', __NAMESPACE__ . '\\Hooks::privacy_erase_customer_personal_data_prop', 10, 3);
+		add_action('woocommerce_privacy_remove_order_personal_data_meta', __NAMESPACE__ . '\\Hooks::privacy_remove_order_personal_data_meta');
 
 		// REST
 		//add_filter('woocommerce_rest_customer_schema', __NAMESPACE__ . '\\Hooks::rest_customer_schema', 10); // $properties
@@ -642,30 +641,13 @@ class Hooks {
 	}
 
 	/**
-	 * Remove privacy customer data props values
-	 *
-	 * @since 1.0.0
-	 * @access public
-	 * @static
-	 */
-	public static function privacy_erase_customer_personal_data_prop($erased, $prop, $customer) {
-		if($prop === 'shipping_phone') {
-			$customer->delete_meta_data('shipping_phone');
-		} elseif($prop === 'shipping_email') {
-			$customer->delete_meta_data('shipping_email');
-		}
-
-		return $erased;
-	}
-
-	/**
 	 * Add fields to the privacy order data props
 	 *
 	 * @since 1.0.0
 	 * @access public
 	 * @static
 	 */
-	public static function privacy_order_personal_data_props($props, $order) {
+	public static function privacy_export_order_personal_data_props($props, $order) {
 		if(self::$settings['phone_field_enabled'] !== 'hidden') {
 			$props['shipping_phone'] = __('Shipping Phone Number', 'f4-wc-shipping-phone-email');
 		}
@@ -694,16 +676,36 @@ class Hooks {
 		return $value;
 	}
 
+
 	/**
-	 * Remove privacy order data props values
+	 * Remove privacy customer data props values
 	 *
 	 * @since 1.0.0
 	 * @access public
 	 * @static
 	 */
-	public static function privacy_remove_order_personal_data($order) {
-		delete_post_meta($order->get_id(), '_shipping_phone');
-		delete_post_meta($order->get_id(), '_shipping_email');
+	public static function privacy_erase_customer_personal_data_prop($erased, $prop, $customer) {
+		if($prop === 'shipping_phone') {
+			$customer->delete_meta_data('shipping_phone');
+		} elseif($prop === 'shipping_email') {
+			$customer->delete_meta_data('shipping_email');
+		}
+
+		return $erased;
+	}
+
+	/**
+	 * Remove privacy order data meta
+	 *
+	 * @since 1.0.5
+	 * @access public
+	 * @static
+	 */
+	public static function privacy_remove_order_personal_data_meta($meta) {
+		$meta['_shipping_phone'] = 'phone';
+		$meta['_shipping_email'] = 'email';
+
+		return $meta;
 	}
 }
 

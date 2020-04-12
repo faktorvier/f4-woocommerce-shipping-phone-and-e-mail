@@ -424,7 +424,7 @@ class Hooks {
 
 		if(self::$settings['email_field_enabled'] !== 'hidden') {
 			$fields['shipping']['fields']['shipping_email'] = apply_filters(
-				'F4/WCSPE/customer_meta_field_phone',
+				'F4/WCSPE/customer_meta_field_email',
 				array(
 					'label' => __('Email address', 'woocommerce'),
 					'description' => ''

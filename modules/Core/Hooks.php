@@ -108,8 +108,7 @@ class Hooks {
 	 * @static
 	 */
 	public static function load_textdomain() {
-		$locale = apply_filters('plugin_locale', get_locale(), 'f4-wc-shipping-phone-email');
-		load_plugin_textdomain('f4-wc-shipping-phone-email', false, plugin_basename(F4_WCSPE_PATH . 'Core/Lang') . '/');
+		load_plugin_textdomain('f4-woocommerce-shipping-phone-and-e-mail', false, plugin_basename(F4_WCSPE_PATH . 'languages') . '/');
 	}
 
 	/**
@@ -341,7 +340,7 @@ class Hooks {
 		// Section start
 		$fields_settings = array(
 			array(
-				'title' => __('Shipping Phone Number and E-Mail fields', 'f4-wc-shipping-phone-email'),
+				'title' => __('Shipping Phone Number and E-Mail fields', 'f4-woocommerce-shipping-phone-and-e-mail'),
 				'type' => 'title',
 				'id' => 'shipping-phone-email'
 			)
@@ -350,7 +349,7 @@ class Hooks {
 		// Phone field enabled
 		$fields_settings[] = array(
 			'title' => __('Phone', 'woocommerce'),
-			'desc' => __('Default = The same settings as the delivery address will be used. ', 'f4-wc-shipping-phone-email'),
+			'desc' => __('Default = The same settings as the delivery address will be used. ', 'f4-woocommerce-shipping-phone-and-e-mail'),
 			'id' => 'woocommerce_enable_shipping_field_phone',
 			'type' => 'select',
 			'default' => 'billing',
@@ -367,7 +366,7 @@ class Hooks {
 		// E-mail field enabled
 		$fields_settings[] = array(
 			'title' => __('Email address', 'woocommerce'),
-			'desc' => __('Default = The same settings as the delivery address will be used. ', 'f4-wc-shipping-phone-email'),
+			'desc' => __('Default = The same settings as the delivery address will be used. ', 'f4-woocommerce-shipping-phone-and-e-mail'),
 			'id' => 'woocommerce_enable_shipping_field_email',
 			'type' => 'select',
 			'default' => 'billing',
@@ -613,11 +612,11 @@ class Hooks {
 	 */
 	public static function privacy_customer_personal_data_props($props, $customer) {
 		if(self::$settings['phone_field_enabled'] !== 'hidden') {
-			$props['shipping_phone'] = __('Shipping Phone Number', 'f4-wc-shipping-phone-email');
+			$props['shipping_phone'] = __('Shipping Phone Number', 'f4-woocommerce-shipping-phone-and-e-mail');
 		}
 
 		if(self::$settings['email_field_enabled'] !== 'hidden') {
-			$props['shipping_email'] = __('Shipping Email Address', 'f4-wc-shipping-phone-email');
+			$props['shipping_email'] = __('Shipping Email Address', 'f4-woocommerce-shipping-phone-and-e-mail');
 		}
 
 		return $props;
@@ -649,11 +648,11 @@ class Hooks {
 	 */
 	public static function privacy_export_order_personal_data_props($props, $order) {
 		if(self::$settings['phone_field_enabled'] !== 'hidden') {
-			$props['shipping_phone'] = __('Shipping Phone Number', 'f4-wc-shipping-phone-email');
+			$props['shipping_phone'] = __('Shipping Phone Number', 'f4-woocommerce-shipping-phone-and-e-mail');
 		}
 
 		if(self::$settings['email_field_enabled'] !== 'hidden') {
-			$props['shipping_email'] = __('Shipping Email Address', 'f4-wc-shipping-phone-email');
+			$props['shipping_email'] = __('Shipping Email Address', 'f4-woocommerce-shipping-phone-and-e-mail');
 		}
 
 		return $props;

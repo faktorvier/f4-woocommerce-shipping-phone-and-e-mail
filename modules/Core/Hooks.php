@@ -46,11 +46,14 @@ class Hooks {
 		add_filter('woocommerce_checkout_fields', __NAMESPACE__ . '\\Hooks::add_checkout_shipping_fields', 10);
 		add_filter('woocommerce_shipping_fields', __NAMESPACE__ . '\\Hooks::add_address_shipping_fields', 10, 2);
 		add_filter('woocommerce_ajax_get_customer_details', __NAMESPACE__ . '\\Hooks::add_fields_to_ajax_get_customer_details', 10, 3);
+		add_action('woocommerce_after_checkout_validation', __NAMESPACE__ . '\\Hooks::set_guest_checkout_session_props');
+		add_filter('woocommerce_checkout_get_value', __NAMESPACE__ . '\\Hooks::get_guest_checkout_field_values', 10, 2);
 
 		// Formatted address
 		add_filter('woocommerce_order_formatted_shipping_address', __NAMESPACE__ . '\\Hooks::add_fields_to_formatted_order_address', 10, 2);
 		add_filter('woocommerce_localisation_address_formats', __NAMESPACE__ . '\\Hooks::append_fields_to_localisation_address_formats', 10);
 		add_filter('woocommerce_formatted_address_replacements', __NAMESPACE__ . '\\Hooks::replace_fields_in_formatted_address', 10, 2);
+
 
 		// Backend
 		add_filter('woocommerce_get_settings_account', __NAMESPACE__ . '\\Hooks::add_settings_fields', 10);
@@ -242,6 +245,42 @@ class Hooks {
 		}
 
 		return $data;
+	}
+
+	/**
+	 * Set checkout session props for guests
+	 *
+	 * @since 1.0.9
+	 * @access public
+	 * @static
+	 */
+	public static function set_guest_checkout_session_props($data) {
+		if(is_user_logged_in()) {
+			return;
+		}
+
+		if(isset($data['shipping_phone'])) {
+			WC()->session->set('shipping_phone', wc_clean(wp_unslash($data['shipping_phone'])));
+		}
+
+		if(isset($data['shipping_email'])) {
+			WC()->session->set('shipping_email', wc_clean(wp_unslash($data['shipping_email'])));
+		}
+	}
+
+	/**
+	 * Get checkout field values for guests
+	 *
+	 * @since 1.0.9
+	 * @access public
+	 * @static
+	 */
+	public static function get_guest_checkout_field_values($value, $input) {
+		if(!is_null($value) || !in_array($input, ['shipping_phone', 'shipping_email']) || is_user_logged_in()) {
+			return $value;
+		}
+
+		return WC()->session->get($input);
 	}
 
 	/**

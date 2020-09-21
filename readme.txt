@@ -62,6 +62,9 @@ You can change the settings for both fields on the Accounts & Privacy screen in 
 
 == Changelog ==
 
+= 1.0.9 =
+* Save guest checkout fields in session
+
 = 1.0.8 =
 * Support WooCommerce 4.4
 * Support WordPress 5.5

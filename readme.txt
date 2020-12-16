@@ -3,9 +3,9 @@ Contributors: faktorvier
 Donate link: https://www.faktorvier.ch/donate/
 Tags: woocommerce, checkout, shipping, telephone, email, field, fields, shop, ecommerce, order, account
 Requires at least: 5.0
-Tested up to: 5.5
+Tested up to: 5.6
 Requires PHP: 7.0
-Stable tag: 1.0.9
+Stable tag: 1.0.10
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,10 @@ You can change the settings for both fields on the Accounts & Privacy screen in 
 6. Field configuration in WooCommerce settings
 
 == Changelog ==
+
+= 1.0.10 =
+* Support WooCommerce 4.8
+* Support WordPress 5.6
 
 = 1.0.9 =
 * Save guest checkout fields in session

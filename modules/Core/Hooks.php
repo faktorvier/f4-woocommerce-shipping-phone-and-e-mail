@@ -347,7 +347,7 @@ class Hooks {
 		$current_screen = isset($current_screen->id) ? $current_screen->id : null;
 
 		$is_shipping_address = isset($args['address_type']) && $args['address_type'] === 'shipping';
-		$is_order_admin = in_array($current_screen, array('edit-shop_order', 'shop_order'));
+		$is_order_admin = in_array($current_screen, array('edit-shop_order', 'shop_order')) && isset($_GET['post']);
 		$is_order_preview = isset($_REQUEST['action']) && $_REQUEST['action'] === 'woocommerce_get_order_details';
 
 		if(apply_filters('F4/WCSPE/append_fields_to_formatted_address', $is_shipping_address && !$is_order_admin && !$is_order_preview, $args)) {
@@ -360,6 +360,7 @@ class Hooks {
 				$replace['{email}'] = $args['email'];
 				$replace['{email_upper}'] = strtoupper($args['email']);
 			}
+
 		} else {
 			$replace['{phone_upper}'] = $replace['{phone}'] = '';
 			$replace['{email_upper}'] = $replace['{email}'] = '';

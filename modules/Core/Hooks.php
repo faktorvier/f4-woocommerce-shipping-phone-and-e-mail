@@ -316,13 +316,17 @@ class Hooks {
 	 * @static
 	 */
 	public static function append_fields_to_localisation_address_formats($formats) {
-		if(self::$settings['phone_field_enabled'] !== 'hidden') {
+		$append_phone = apply_filters('F4/WCSPE/append_phone_field_to_formatted_address', !method_exists('WC_Order', 'get_shipping_phone'));
+
+		if(self::$settings['phone_field_enabled'] !== 'hidden' && $append_phone) {
 			foreach($formats as $country => &$format) {
 				$format .= "\n{phone}";
 			}
 		}
 
-		if(self::$settings['email_field_enabled'] !== 'hidden') {
+		$append_email = apply_filters('F4/WCSPE/append_email_field_to_formatted_address', !method_exists('WC_Order', 'get_shipping_email'));
+
+		if(self::$settings['email_field_enabled'] !== 'hidden' && $append_email) {
 			foreach($formats as $country => &$format) {
 				$format .= "\n{email}";
 			}
@@ -351,12 +355,16 @@ class Hooks {
 		$is_order_preview = isset($_REQUEST['action']) && $_REQUEST['action'] === 'woocommerce_get_order_details';
 
 		if(apply_filters('F4/WCSPE/append_fields_to_formatted_address', $is_shipping_address && !$is_order_admin && !$is_order_preview, $args)) {
-			if(isset($args['phone'])) {
+			$append_phone = apply_filters('F4/WCSPE/append_phone_field_to_formatted_address', !method_exists('WC_Order', 'get_shipping_phone'));
+
+			if(isset($args['phone']) && $append_phone) {
 				$replace['{phone}'] = $args['phone'];
 				$replace['{phone_upper}'] = strtoupper($args['phone']);
 			}
 
-			if(isset($args['email'])) {
+			$append_email = apply_filters('F4/WCSPE/append_email_field_to_formatted_address', !method_exists('WC_Order', 'get_shipping_email'));
+
+			if(isset($args['email']) && $append_email) {
 				$replace['{email}'] = $args['email'];
 				$replace['{email_upper}'] = strtoupper($args['email']);
 			}
@@ -491,14 +499,20 @@ class Hooks {
 			);
 		}
 
-		if(self::$settings['phone_field_enabled'] !== 'hidden') {
-			$fields['phone'] = apply_filters(
-				'F4/WCSPE/admin_field_phone',
-				array(
-					'label' => __('Phone', 'woocommerce'),
-					'wrapper_class' => '_billing_phone_field'
-				)
-			);
+		if(!isset($fields['phone'])) {
+			if(self::$settings['phone_field_enabled'] !== 'hidden') {
+				$fields['phone'] = apply_filters(
+					'F4/WCSPE/admin_field_phone',
+					array(
+						'label' => __('Phone', 'woocommerce'),
+						'wrapper_class' => '_billing_phone_field'
+					)
+				);
+			}
+		} else {
+			$phone_field = $fields['phone'];
+			unset($fields['phone']);
+			$fields['phone'] = $phone_field;
 		}
 
 		return $fields;

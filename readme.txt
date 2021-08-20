@@ -5,7 +5,7 @@ Tags: woocommerce, checkout, shipping, telephone, email, field, fields, shop, ec
 Requires at least: 5.0
 Tested up to: 5.8
 Requires PHP: 7.0
-Stable tag: 1.0.12
+Stable tag: 1.0.13
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -51,6 +51,86 @@ You can change the settings for both fields on the Accounts & Privacy screen in 
 1. Activate the plugin through the 'Plugins' screen in WordPress
 1. Use the Woocommerce -> Settings -> Accounts & Privacy screen to configure the plugin
 
+== Frequently Asked Questions ==
+
+= Since WooCommerce 5.6 the shipping phone is missing in the email addresses and on the order page =
+
+Since WooCommerce 5.6 the shipping phone is natively supported in the formatted shipping address. You have to make sure that your template files
+(emails/email-addresses.php, emails/plain/email-addresses.php, order/order-details-customer.php) are up-to-date (@version 5.6.0). If your template is not at
+least 5.6 compatible then you can simply add the following hook to your functions.php. This hook should restore the previous functionality until your templates are up-to-date:
+
+`add_filter('F4/WCSPE/append_phone_field_to_formatted_address', '__return_true')`
+
+= The shipping email/phone fields are displayed wrong or different than the billing email/phone fields =
+
+Since WooCommerce 5.6 the order of our shipping email/phone fields is different than the billing email/phone fields. Thats because our simple solution to add
+this fields to every theme without changing the code is limited and the WooCommerce 5.6 update changes a few things in the template files that prevents us from
+displaying the fields in the right order. Also the shipping fields may look different than the billing fields, because we don't add any html code to format the output.
+If you want to change the order of the billing phone/email or the displayed output, you can follow these steps to disable our default output and add your own code:
+
+Add the following hook to your theme (functions.php):
+
+	add_filter('F4/WCSPE/append_email_field_to_formatted_address', '__return_false');
+	add_filter('F4/WCSPE/append_phone_field_to_formatted_address', '__return_false'); // only for versions lesser than 5.6
+
+Search in the template file `emails/email-addresses.php` for the following code:
+
+	<address class="address">
+		<?php echo wp_kses_post( $shipping ); ?>
+		<?php if ( $order->get_shipping_phone() ) : ?>
+			<br /><?php echo wc_make_phone_clickable( $order->get_shipping_phone() ); ?>
+		<?php endif; ?>
+	</address>
+
+and replace it with this code:
+
+	<address class="address">
+		<?php echo wp_kses_post( $shipping ); ?>
+		<?php if ( $order->get_shipping_phone() ) : ?>
+			<br /><?php echo wc_make_phone_clickable( $order->get_shipping_phone() ); ?>
+		<?php endif; ?>
+		<?php if ( $order->get_meta('_shipping_email') ) : ?>
+			<br/><?php echo esc_html( $order->get_meta('_shipping_email') ); ?>
+		<?php endif; ?>
+	</address>
+
+Search in the template file `emails/plain/email-addresses.php` for the following code:
+
+	if ( $order->get_shipping_phone() ) {
+		echo $order->get_shipping_phone() . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	}
+
+and replace it with this code:
+
+	if ( $order->get_shipping_phone() ) {
+		echo $order->get_shipping_phone() . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	}
+	if ( $order->get_meta('_shipping_email') ) {
+		echo $order->get_meta('_shipping_email') . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	}
+
+Search in the template file `order/order-details-customer.php` for the following code:
+
+	<?php if ( $order->get_shipping_phone() ) : ?>
+		<p class="woocommerce-customer-details--phone"><?php echo esc_html( $order->get_shipping_phone() ); ?></p>
+	<?php endif; ?>
+
+and replace it with this code:
+
+	<?php if ( $order->get_shipping_phone() ) : ?>
+		<p class="woocommerce-customer-details--phone"><?php echo esc_html( $order->get_shipping_phone() ); ?></p>
+	<?php endif; ?>
+
+	<?php if ( $order->get_meta('_shipping_email') ) : ?>
+		<p class="woocommerce-customer-details--email"><?php echo esc_html( $order->get_meta('_shipping_email') ); ?></p>
+	<?php endif; ?>
+
+The code may vary in your theme, you just have to look for similar looking code.
+
+= Is it really free? =
+
+Yes, absolutely!
+
 == Screenshots ==
 
 1. Fields in checkout shipping form
@@ -61,6 +141,12 @@ You can change the settings for both fields on the Accounts & Privacy screen in 
 6. Field configuration in WooCommerce settings
 
 == Changelog ==
+
+= 1.0.13 =
+* Fix phone field output in formatted address for WooCommerce 5.6
+* Add hooks to individually hide email or phone field in formatted address
+* Add some FAQ
+* Support WooCommerce 5.6
 
 = 1.0.12 =
 * Fix condition for formatted part in address block
@@ -107,3 +193,8 @@ You can change the settings for both fields on the Accounts & Privacy screen in 
 
 = 1.0.0 =
 * Initial stable release
+
+== Upgrade Notice ==
+
+= 1.0.13 =
+Fix phone field output in formatted address for WooCommerce 5.6

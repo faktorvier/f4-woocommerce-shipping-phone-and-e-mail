@@ -3,9 +3,9 @@ Contributors: faktorvier
 Donate link: https://www.faktorvier.ch/donate/
 Tags: woocommerce, checkout, shipping, telephone, email, field, fields, shop, ecommerce, order, account
 Requires at least: 5.0
-Tested up to: 5.8
+Tested up to: 5.9
 Requires PHP: 7.0
-Stable tag: 1.0.13
+Stable tag: 1.0.14
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -142,6 +142,9 @@ Yes, absolutely!
 
 == Changelog ==
 
+= 1.0.14 =
+* Support WordPress 5.9
+
 = 1.0.13 =
 * Fix phone field output in formatted address for WooCommerce 5.6
 * Add hooks to individually hide email or phone field in formatted address
@@ -193,8 +196,3 @@ Yes, absolutely!
 
 = 1.0.0 =
 * Initial stable release
-
-== Upgrade Notice ==
-
-= 1.0.13 =
-Fix phone field output in formatted address for WooCommerce 5.6

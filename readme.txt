@@ -3,9 +3,9 @@ Contributors: faktorvier
 Donate link: https://www.faktorvier.ch/donate/
 Tags: woocommerce, checkout, shipping, telephone, email, field, fields, shop, ecommerce, order, account
 Requires at least: 5.0
-Tested up to: 5.9
+Tested up to: 6.0
 Requires PHP: 7.0
-Stable tag: 1.0.14
+Stable tag: 1.0.15
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -141,6 +141,10 @@ Yes, absolutely!
 6. Field configuration in WooCommerce settings
 
 == Changelog ==
+
+= 1.0.15 =
+* Support WooCommerce 6.5
+* Support WordPress 6.0
 
 = 1.0.14 =
 * Support WordPress 5.9

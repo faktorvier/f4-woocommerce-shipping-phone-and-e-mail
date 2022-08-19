@@ -5,7 +5,7 @@ Tags: woocommerce, checkout, shipping, telephone, email, field, fields, shop, ec
 Requires at least: 5.0
 Tested up to: 6.0
 Requires PHP: 7.0
-Stable tag: 1.0.15
+Stable tag: 1.0.16
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,7 +13,7 @@ Adds fields for e-mail and/or telephone to the WooCommerce shipping address.
 
 == Description ==
 
-F4 Shipping Phone and E-Mail for WooCommerce does exactly what the name says. It adds (often needed) fields
+[F4 Shipping Phone and E-Mail for WooCommerce](https://www.f4dev.ch) does exactly what the name says. It adds (often needed) fields
 for e-mail and/or telephone number to the shipping address. Here are a few things the plugin does:
 
 * Adds e-mail and/or telephone field to the shipping address checkout form
@@ -141,6 +141,10 @@ Yes, absolutely!
 6. Field configuration in WooCommerce settings
 
 == Changelog ==
+
+= 1.0.16 =
+* Update www.f4dev.ch links
+* Support WooCommerce 6.8
 
 = 1.0.15 =
 * Support WooCommerce 6.5

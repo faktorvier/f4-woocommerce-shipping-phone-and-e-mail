@@ -2,6 +2,8 @@
 
 namespace F4\WCSPE\Core;
 
+use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+
 /**
  * Core Hooks
  *
@@ -41,6 +43,8 @@ class Hooks {
 	public static function core_loaded() {
 		do_action('F4/WCSPE/Core/set_constants');
 		do_action('F4/WCSPE/Core/loaded');
+
+		add_action('before_woocommerce_init', __NAMESPACE__ . '\\Hooks::declare_woocommerce_compatibilities');
 
 		// Checkout and account fields
 		add_filter('woocommerce_checkout_fields', __NAMESPACE__ . '\\Hooks::add_checkout_shipping_fields', 10);
@@ -112,6 +116,20 @@ class Hooks {
 	 */
 	public static function load_textdomain() {
 		load_plugin_textdomain('f4-woocommerce-shipping-phone-and-e-mail', false, plugin_basename(F4_WCSPE_PATH . 'languages') . '/');
+	}
+
+	/**
+	 * Declare WooCommerce compatibilities.
+	 *
+	 * @since 1.0.18
+	 * @access public
+	 * @static
+	 */
+	public static function declare_woocommerce_compatibilities() {
+		if(class_exists(\Automattic\WooCommerce\Utilities\FeaturesUtil::class)) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('custom_order_tables', F4_WCSPE_MAIN_FILE, true);
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('product_block_editor', F4_WCSPE_MAIN_FILE, true);
+		}
 	}
 
 	/**
@@ -237,7 +255,7 @@ class Hooks {
 	 */
 	public static function add_fields_to_ajax_get_customer_details($data, $customer, $user_id) {
 		if(self::$settings['phone_field_enabled'] !== 'hidden') {
-			$data['shipping']['phone'] = $customer->get_meta('shipping_phone');
+			$data['shipping']['phone'] = $customer->get_shipping_phone();
 		}
 
 		if(self::$settings['email_field_enabled'] !== 'hidden') {
@@ -297,12 +315,12 @@ class Hooks {
 
 		if(self::$settings['phone_field_enabled'] !== 'hidden') {
 			$address['address_type'] = 'shipping';
-			$address['phone'] = get_post_meta($order->get_id(), '_shipping_phone', true);
+			$address['phone'] = $order->get_shipping_phone();
 		}
 
 		if(self::$settings['email_field_enabled'] !== 'hidden') {
 			$address['address_type'] = 'shipping';
-			$address['email'] = get_post_meta($order->get_id(), '_shipping_email', true);
+			$address['email'] = $order->get_meta('_shipping_email');
 		}
 
 		return $address;
@@ -350,8 +368,14 @@ class Hooks {
 		$current_screen = function_exists('get_current_screen') ? get_current_screen() : null;
 		$current_screen = isset($current_screen->id) ? $current_screen->id : null;
 
+		$order_screen = '';
+
+		if(function_exists('wc_get_page_screen_id')) {
+			$order_screen = wc_get_container()->get(CustomOrdersTableController::class)->custom_orders_table_usage_is_enabled() ? wc_get_page_screen_id('shop-order') : 'shop_order';
+		}
+
 		$is_shipping_address = isset($args['address_type']) && $args['address_type'] === 'shipping';
-		$is_order_admin = in_array($current_screen, array('edit-shop_order', 'shop_order')) && isset($_GET['post']);
+		$is_order_admin = in_array($current_screen, array("edit-{$order_screen}", $order_screen)) && isset($_GET['post']);
 		$is_order_preview = isset($_REQUEST['action']) && $_REQUEST['action'] === 'woocommerce_get_order_details';
 
 		if(apply_filters('F4/WCSPE/append_fields_to_formatted_address', $is_shipping_address && !$is_order_admin && !$is_order_preview, $args)) {
@@ -581,14 +605,14 @@ class Hooks {
 		if(self::$settings['phone_field_enabled'] !== 'hidden') {
 			$details['data']['shipping']['phone'] = apply_filters(
 				'F4/WCSPE/get_order_preview_detail_phone',
-				get_post_meta($order->get_id(), '_shipping_phone', true)
+				$order->get_shipping_phone()
 			);
 		}
 
 		if(self::$settings['email_field_enabled'] !== 'hidden') {
 			$details['data']['shipping']['email'] = apply_filters(
 				'F4/WCSPE/get_order_preview_detail_email',
-				get_post_meta($order->get_id(), '_shipping_email', true)
+				$order->get_meta('_shipping_email')
 			);
 		}
 
@@ -634,13 +658,13 @@ class Hooks {
 			}
 
 			if($paypal_gateway->get_option('send_shipping') === 'yes') {
-				$args['email'] = get_post_meta($order->get_id(), '_shipping_email', true);
+				$args['email'] = $order->get_meta('_shipping_email');
 			}
 		}
 
 		// Overwrite phone
 		if(self::$settings['phone_field_enabled'] !== 'hidden') {
-			$shipping_phone = get_post_meta($order->get_id(), '_shipping_phone', true);
+			$shipping_phone = $order->get_shipping_phone();
 
 			if(in_array($order->get_shipping_country(), array('US', 'CA'), true)) {
 				$phone_number = str_replace(array('(', '-', ' ', ')', '.'), '', $shipping_phone);
@@ -685,7 +709,7 @@ class Hooks {
 	 */
 	public static function privacy_export_customer_personal_data_prop_value($value, $prop, $customer) {
 		if($prop === 'shipping_phone') {
-			$value = $customer->get_meta('shipping_phone');
+			$value = $customer->get_shipping_phone();
 		} elseif($prop === 'shipping_email') {
 			$value = $customer->get_meta('shipping_email');
 		}
@@ -721,14 +745,13 @@ class Hooks {
 	 */
 	public static function privacy_export_order_personal_data_prop($value, $prop, $order) {
 		if($prop === 'shipping_phone') {
-			$value = get_post_meta($order->get_id(), '_shipping_phone', true);
+			$value = $order->get_shipping_phone();
 		} elseif($prop === 'shipping_email') {
-			$value = get_post_meta($order->get_id(), '_shipping_email', true);
+			$value = $order->get_meta('_shipping_email');
 		}
 
 		return $value;
 	}
-
 
 	/**
 	 * Remove privacy customer data props values

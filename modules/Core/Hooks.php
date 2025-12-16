@@ -58,7 +58,6 @@ class Hooks {
 		add_filter('woocommerce_localisation_address_formats', __NAMESPACE__ . '\\Hooks::append_fields_to_localisation_address_formats', 10);
 		add_filter('woocommerce_formatted_address_replacements', __NAMESPACE__ . '\\Hooks::replace_fields_in_formatted_address', 10, 2);
 
-
 		// Backend
 		add_filter('woocommerce_get_settings_account', __NAMESPACE__ . '\\Hooks::add_settings_fields', 10);
 		add_filter('woocommerce_customer_meta_fields', __NAMESPACE__ . '\\Hooks::add_customer_meta_fields', 10);
@@ -409,6 +408,8 @@ class Hooks {
 	 * @static
 	 */
 	public static function add_settings_fields($settings) {
+		$settings = array_values($settings);
+
 		// Section start
 		$fields_settings = array(
 			array(
